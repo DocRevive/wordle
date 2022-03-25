@@ -1,8 +1,8 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -26,9 +26,13 @@ public class Wordle {
         char[] answer;
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/vocabulary.txt"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    Objects.requireNonNull(
+                            Class.forName("Wordle").getResourceAsStream("/vocabulary.txt")
+                    )
+            ));
             vocabulary = br.lines().collect(Collectors.toList());
-        } catch (final IOException e) {
+        } catch (final ClassNotFoundException e) {
             throw new RuntimeException("Couldn't load the vocabulary: " + e.getMessage());
         }
 
@@ -130,8 +134,8 @@ public class Wordle {
                 }
 
                 guesses[guessIndex] = String.join("", guessColors);
-                System.out.println(String.join("\n", guesses));
-                System.out.println(alphabetInfo);
+                System.out.println("\n" + String.join("\n", guesses));
+                System.out.println(alphabetInfo + "\n");
 
                 guessIndex++;
 

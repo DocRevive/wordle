@@ -1,11 +1,8 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="Wordle:jar">
-    <output-path>$USER_HOME$/Desktop/Projects/wordle/game</output-path>
+    <output-path>$USER_HOME$/Desktop/Projects/wordle</output-path>
     <root id="archive" name="Wordle.jar">
       <element id="module-output" name="Wordle" />
-      <element id="directory" name="src">
-        <element id="file-copy" path="$PROJECT_DIR$/src/vocabulary.txt" />
-      </element>
     </root>
   </artifact>
 </component>

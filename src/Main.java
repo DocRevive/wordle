@@ -19,11 +19,23 @@ public class Main
         Scanner input = new Scanner(System.in);
         boolean validPath = false;
 
+        // User decides the mode
+        System.out.println("Choose one:\n[1] Play Wordle\n[2] Solve Wordle");
+        String choice = input.nextLine().toLowerCase();
+        if (choice.equals("1") || choice.equals("play")) {
+            Wordle.main(new String[0]);
+            return;
+        }
+
+        if (!(choice.equals("2") || choice.equals("solve"))) {
+            System.exit(0);
+        }
+
         // Ensure a valid vocab file is loaded
         do {
             System.out.println("Path to vocab file or 'default':");
             if (solver.loadProcessStoreVocab(
-                    input.nextLine().equals("default") ? "src/vocabulary.txt" : input.nextLine())
+                    input.nextLine().equals("default") ? "/vocabulary.txt" : input.nextLine())
             ) {
                 validPath = true;
             } else {

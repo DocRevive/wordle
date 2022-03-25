@@ -1,15 +1,12 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Comparator;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.io.IOException;
-import java.nio.file.InvalidPathException;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -157,7 +154,7 @@ public class WordleSolver
      * Finds the best openers for Wordle. Same as 'findBestWords'
      * but with the object's entire vocabulary and frequencies.
      *
-     * @param  quantity  number of best openers to return
+     * @param  quantity  number of the best openers to return
      * @return           ordered HashMap of 5-letter words mapped to rankings
      */
     public LinkedHashMap<String, Integer> findBestOpeners(int quantity)
@@ -169,7 +166,7 @@ public class WordleSolver
      * Gets known correct letters in certain correct positions
      * (green letters in wordle)
      *
-     * @return 5-character String with '.' placeholding unknowns
+     * @return 5-character String with '.' placeholder for unknowns
      */
     public String getGreen()
     {
@@ -214,7 +211,7 @@ public class WordleSolver
      * Sets known correct letters in certain correct positions
      * (green letters in wordle)
      *
-     * @param  green  5-character String with '.' placeholding unknowns
+     * @param  green  5-character String with '.' placeholder for unknowns
      */
     public void setGreen(String green)
     {
@@ -298,10 +295,14 @@ public class WordleSolver
     public boolean loadProcessStoreVocab(String vocabFile)
     {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(vocabFile));
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    Objects.requireNonNull(
+                            Class.forName("Wordle").getResourceAsStream(vocabFile)
+                    )
+            ));
             vocabulary = br.lines().collect(Collectors.joining("\n")).split("\n");
-        } catch (IOException|InvalidPathException e) {
-            return false;
+        } catch (final ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load the vocabulary: " + e.getMessage());
         }
 
         letterFrequencies = generateLetterFreq(vocabulary);

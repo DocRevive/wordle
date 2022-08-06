@@ -37,5 +37,5 @@ exit                       terminate program
 ## Usage
 Clone this repo
 ```
-java -jar Blackjack.jar
+java -jar Wordle.jar
 ```

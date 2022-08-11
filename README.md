@@ -14,7 +14,7 @@ If you pass in no information, the best starting words are found (based on that 
 
 If one of those starting words completely fails (all gray), the next best word, according to the solver, is "unity". 
 
-# Solver commands:
+## Solver commands:
 ```
 setvocabfile <String>      sets path to vocabulary file
 vocabsize                  gets number of words in vocabulary
@@ -30,6 +30,10 @@ viewgray                   displays all gray characters
 newgame                    resets solver information
 exit                       terminate program
 ```
+
+## Game commands:
+
+Enter letters, 'skip' to give up, 'exit' to stop. 
 
 ## Requirements
 + Java SE 11

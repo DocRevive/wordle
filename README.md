@@ -14,7 +14,7 @@ If you pass in no information, the best starting words are found (based on that 
 
 If one of those starting words completely fails (all gray), the next best word, according to the solver, is "unity". 
 
-## Solver commands:
+## Solver commands
 ```
 setvocabfile <String>      sets path to vocabulary file
 vocabsize                  gets number of words in vocabulary
@@ -31,7 +31,62 @@ newgame                    resets solver information
 exit                       terminate program
 ```
 
-## Game commands:
+## Solver examples
+
+setgreen's argument is a sequence of 5 letters with green letters in the right positions and periods (.) as placeholders for non-green letters.
+```
+Wordle guess: oners
+Wordle result: green (o), green (n), yellow (e), gray (r), yellow (s)
+
+Commands you should run:
+setgreen on...
+addgray r
+addyellow e 2
+addyellow s 4
+choices 3
+
+choices result: {onset=5}
+```
+5 is the word's "score" relative to other possibilities. Since there is only one, "onset," it is the answer.
+```
+Command you should run: newgame
+
+Wordle guess: soare
+Wordle result: gray (s), gray (o), green (a), gray (r), gray (e)
+
+Commands you should run:
+setgreen ..a..
+addgray s,o,r,e
+choices 3
+
+choices result: {clank=450, liang=449, thali=446}
+```
+Here, the top two possibilities the solver has given have almost the same score. By the solver's metrics, they are nearly equally helpful, but the Wordle dictionary contains many rare words that will never be picked as actual solutions. If there is a tie or a near tie, choose the word that is more familiar.
+```
+Wordle guess: clank
+Wordle result: gray (c), gray (l), green (a), green (n), gray (k)
+
+Commands you should run:
+setgreen ..an.
+addgray c,l,k
+choices 3
+
+choices result: {thang=79, giant=78, hiant=76}
+```
+```
+Wordle guess: thang
+Wordle result: green (t), gray (h), green (a), green (n), green (g)
+
+Commands you should run:
+setgreen t.ang
+addgray h
+choices 3
+
+choices result: {twang=5}
+```
+The solution is "twang."
+
+## Game commands
 
 Enter letters, 'skip' to give up, 'exit' to stop. 
 
